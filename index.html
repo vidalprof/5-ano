@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Grande Jornada da Gota Cristalina</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+    <div id="tela-inicio" class="tela ativa">
+        <img src="imagens/tela-inicial.png" alt="Planeta Terra feliz com uma gota de água" class="img-inicio">
+        <h1>A Grande Jornada da Gota Cristalina</h1>
+        <p>Olá, explorador(a) da natureza! Vamos aprender sobre o ciclo da água.</p>
+        <label for="nome-aluno">Para começar, qual é o seu nome?</label>
+        <input type="text" id="nome-aluno" placeholder="Digite seu nome aqui">
+        <button id="btn-comecar">Iniciar</button>
+    </div>
+
+    <div id="tela-texto" class="tela">
+        <h2>A Viagem Sem Fim da Água</h2>
+        <div class="texto-container">
+            <p><img src="imagens/evaporacao.png" alt="Sol e água evaporando" class="texto-imagem"><strong>1. A Subida Mágica (Evaporação):</strong> Nossa viagem começa nos rios, lagos e oceanos. O <strong>Sol</strong>, que é como um grande motor, esquenta a água. Quando a água esquenta, ela fica tão leve que se transforma em vapor. Esse vapor sobe para o céu. As plantas também ajudam, liberando vapor em um processo chamado <strong>transpiração</strong>.</p>
+            <p><img src="imagens/condensacao.png" alt="Nuvem se formando a partir do vapor" class="texto-imagem"><strong>2. A Formação das Nuvens (Condensação):</strong> Lá no alto, o ar é mais frio. Quando o vapor de água encontra esse ar frio, ele se junta em gotinhas minúsculas, formando as nuvens. Esse processo se chama <strong>condensação</strong>. É como quando um espelho fica embaçado!</p>
+            <p><img src="imagens/precipitacao.png" alt="Nuvem com chuva caindo" class="texto-imagem"><strong>3. A Volta para a Terra (Precipitação):</strong> As nuvens são como balões de gotinhas. Quando ficam muito cheias e pesadas, a água cai de volta para a Terra em forma de <strong>chuva</strong>, <strong>neve</strong> ou <strong>granizo</strong>. Essa queda é a <strong>precipitação</strong>.</p>
+            <p><img src="imagens/coleta.png" alt="Paisagem com rio e montanhas" class="texto-imagem"><strong>4. O Recomeço (Coleta e Infiltração):</strong> A água que cai volta para os rios, lagos e oceanos (<strong>coleta</strong>) ou entra na terra (<strong>infiltração</strong>), abastecendo os reservatórios subterrâneos. E então... o Sol esquenta a água e a viagem recomeça!</p>
+        </div>
+        <button onclick="mostrarTela('tela-evaporacao')">Entendi! Quero começar a jornada!</button>
+    </div>
+    
+    <div id="tela-evaporacao" class="tela">
+        <h2>Fase 1: A Evaporação ☀️</h2>
+        <p>Clique no Sol para transformar a água em vapor!</p>
+        <div id="cena-evaporacao"><div id="sol">☀️</div><div id="agua"><div id="gota-cristalina">💧</div>💧💧</div></div>
+        <button id="btn-avancar-evaporacao" class="escondido" onclick="mostrarTela('tela-condensacao')">Próxima Fase!</button>
+    </div>
+    <div id="tela-condensacao" class="tela">
+        <h2>Fase 2: A Condensação ☁️</h2>
+        <p>Clique para juntar o vapor e formar uma nuvem!</p>
+        <div id="cena-condensacao"><div class="vapor v1">💨</div><div class="vapor v2">💨</div><div class="vapor v3">💨</div><div id="nuvem-formada" class="escondido">☁️</div></div>
+        <button id="btn-condensar">Juntar o vapor!</button>
+        <button id="btn-avancar-condensacao" class="escondido" onclick="mostrarTela('tela-precipitacao')">Próxima Fase!</button>
+    </div>
+    <div id="tela-precipitacao" class="tela">
+        <h2>Fase 3: A Precipitação 🌧️</h2>
+        <p>A nuvem ficou pesada. Clique nela para chover!</p>
+        <div id="cena-precipitacao"><div id="nuvem-carregada">🌧️</div><div id="chuva-container"></div></div>
+        <button id="btn-avancar-precipitacao" class="escondido" onclick="mostrarTela('tela-quiz')">Ir para o Quiz Final!</button>
+    </div>
+
+    <div id="tela-quiz" class="tela">
+        <h2>Quiz Final! 🧐</h2>
+        <p>Mostre o que você aprendeu com a leitura! Escolha a resposta certa.</p>
+        <div id="quiz-final-container">
+            <div class="pergunta"><p>🤔 1. De acordo com o texto, quem é o "grande motor" que esquenta a água?</p><label><input type="radio" name="q1" value="c"> O Sol</label><label><input type="radio" name="q1" value="a"> A Lua</label><label><input type="radio" name="q1" value="b"> O Vento</label></div>
+            <div class="pergunta"><p>🤔 2. O que é a evaporação?</p><label><input type="radio" name="q2" value="a"> Quando a água vira gelo</label><label><input type="radio" name="q2" value="b"> Quando a água líquida se transforma em vapor</label><label><input type="radio" name="q2" value="c"> Quando as nuvens se formam</label></div>
+            <div class="pergunta"><p>🤔 3. As plantas participam da evaporação através de um processo chamado:</p><label><input type="radio" name="q3" value="a"> Transpiração</label><label><input type="radio" name="q3" value="b"> Respiração</label><label><input type="radio" name="q3" value="c"> Fotossíntese</label></div>
+            <div class="pergunta"><p>🤔 4. A condensação acontece quando:</p><label><input type="radio" name="q4" value="b"> O vapor de água esfria e forma as nuvens</label><label><input type="radio" name="q4" value="a"> A água da chuva entra na terra</label><label><input type="radio" name="q4" value="c"> O sol esquenta os rios</label></div>
+            <div class="pergunta"><p>🤔 5. O texto compara a condensação com qual exemplo do dia a dia?</p><label><input type="radio" name="q5" value="a"> Ferver água para o café</label><label><input type="radio" name="q5" value="b"> Um espelho embaçado depois do banho</label><label><input type="radio" name="q5" value="c"> Gelo derretendo</label></div>
+            <div class="pergunta"><p>🤔 6. Qual o nome que se dá para a queda da água das nuvens?</p><label><input type="radio" name="q6" value="b"> Precipitação</label><label><input type="radio" name="q6" value="a"> Infiltração</label><label><input type="radio" name="q6" value="c"> Evaporação</label></div>
+            <div class="pergunta"><p>🤔 7. Por que a água cai das nuvens?</p><label><input type="radio" name="q7" value="a"> Porque o vento sopra muito forte</label><label><input type="radio" name="q7" value="b"> Porque as nuvens ficam muito cheias e pesadas</label><label><input type="radio" name="q7" value="c"> Porque o sol derrete as nuvens</label></div>
+            <div class="pergunta"><p>🤔 8. O que é a infiltração?</p><label><input type="radio" name="q8" value="a"> Quando a água da chuva entra na terra, como uma esponja</label><label><input type="radio" name="q8" value="b"> Quando a água se junta nos rios e lagos</label><label><input type="radio" name="q8" value="c"> Quando a água vira vapor</label></div>
+            <div class="pergunta"><p>🤔 9. A "Coleta" é quando a água...</p><label><input type="radio" name="q9" value="a"> Evapora para o céu</label><label><input type="radio" name="q9" value="c"> Volta e se acumula nos rios, lagos e oceanos</label><label><input type="radio" name="q9" value="b"> Forma as nuvens</label></div>
+            <div class="pergunta"><p>🤔 10. O que o texto quer dizer com "a viagem nunca para"?</p><label><input type="radio" name="q10" value="b"> Que o ciclo da água é um processo contínuo</label><label><input type="radio" name="q10" value="a"> Que a água está sempre suja</label><label><input type="radio" name="q10" value="c"> Que a água dos rios nunca chega ao mar</label></div>
+        </div>
+        <button onclick="verificarQuizFinal()">Ver meu Relatório!</button>
+    </div>
+
+    <div id="tela-relatorio" class="tela">
+        <div id="relatorio-conteudo">
+            <h2>Relatório de Desempenho <span id="maos-aplaudindo"></span></h2>
+            <h3><span class="nome-placeholder"></span></h3>
+            <div class="container-nota">
+                <h3 id="nota-final"></h3>
+                <div id="confetti-container"></div>
+            </div>
+            <p id="resultado-final"></p>
+            <div id="resumo-feedback"></div>
+            <div id="respostas-detalhadas"></div>
+        </div>
+        <button id="btn-pdf" onclick="salvarPDF()">Salvar Relatório em PDF</button>
+        <button onclick="window.location.reload()">Jogar Novamente</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

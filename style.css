@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #87CEEB, #e0f7fa);
+    color: #004d40;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; padding: 20px; box-sizing: border-box;
+}
+
+.tela {
+    display: none; background-color: rgba(255, 255, 255, 0.95);
+    padding: 25px 40px; border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 90%; max-width: 700px; border: 2px solid white;
+}
+
+.tela.ativa { display: block; animation: fadeIn 0.5s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+h1, h2 { color: #00796b; }
+input[type="text"] { width: 80%; padding: 12px; margin: 15px 0; border-radius: 10px; border: 2px solid #b2dfdb; font-size: 16px; text-align: center; }
+button { background-color: #26a69a; color: white; border: none; padding: 15px 30px; border-radius: 10px; font-size: 18px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; margin: 10px 5px; }
+button:hover { background-color: #00897b; transform: scale(1.05); }
+button:disabled { background-color: #aaa; color: #eee; cursor: not-allowed; transform: none; }
+.escondido { display: none !important; }
+
+/* Estilos de Imagem */
+.img-inicio { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 5px solid #00796b; margin-bottom: 15px; }
+.texto-imagem { float: left; margin: 0 15px 5px 0; border-radius: 10px; width: 100px; height: 100px; object-fit: contain; }
+.texto-container p::after { content: ""; display: table; clear: both; }
+.texto-container { text-align: left; max-height: 50vh; overflow-y: auto; padding: 10px 20px; margin: 20px 0; border-left: 4px solid #00796b; background-color: #e0f2f1; border-radius: 8px; }
+.texto-container p { line-height: 1.6; }
+
+/* --- ANIMAÇÃO DE CONDENSAÇÃO MELHORADA --- */
+#cena-condensacao { height: 150px; position: relative; }
+.vapor { font-size: 40px; position: absolute; transition: all 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Easing para um movimento mais natural */ }
+.v1 { top: 70%; left: 10%; }
+.v2 { top: 10%; left: 80%; }
+.v3 { top: 60%; left: 50%; }
+
+/* Estado final dos vapores ao se juntarem */
+.vapor.juntando {
+    top: 40%; /* Converge para o centro vertical */
+    left: 45%; /* Converge para o centro horizontal */
+    opacity: 0; /* Desaparece */
+    transform: scale(0.2) rotate(360deg); /* Encolhe e gira ao desaparecer */
+}
+
+/* A nuvem começa pequena e transparente e cresce */
+#nuvem-formada {
+    font-size: 1px; /* Começa muito pequena */
+    opacity: 0; /* Começa transparente */
+    transform: scale(0.5); /* Começa ligeiramente encolhida */
+    transition: all 1s ease-out 0.5s; /* Transição de 1s com delay de 0.5s */
+}
+
+/* Estado final da nuvem ao crescer */
+#nuvem-formada.crescendo {
+    font-size: 80px; /* Tamanho final */
+    opacity: 1; /* Fica visível */
+    transform: scale(1); /* Cresce para o tamanho normal */
+    animation: wobble 2s ease-in-out 1s; /* Animação extra de pulsação após crescer */
+}
+
+/* Efeito de pulsação para a nuvem */
+@keyframes wobble {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); } /* Pulsa para um pouco maior no meio da animação */
+}
+
+
+/* Animações (evaporação e precipitação) */
+#cena-evaporacao, #cena-precipitacao { height: 150px; position: relative; cursor: pointer; }
+#sol, #nuvem-carregada { font-size: 70px; }
+#agua { font-size: 40px; color: #0288d1; position: absolute; bottom: 10px; width: 100%; }
+#gota-cristalina { display: inline-block; }
+.subindo { animation: subir 2s forwards; }
+@keyframes subir { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-120px); opacity: 0; } }
+#chuva-container { position: absolute; top: 70px; left: 0; width: 100%; height: 80px; overflow: hidden; }
+.gota-chuva { position: absolute; font-size: 20px; animation: cair 1s linear infinite; }
+@keyframes cair { from { transform: translateY(-20px); } to { transform: translateY(100px); } }
+
+/* Animações de Confete e Palmas */
+.container-nota { position: relative; }
+#maos-aplaudindo { display: inline-block; }
+#maos-aplaudindo.animar { animation: aplaudir 0.7s ease-in-out infinite; }
+@keyframes aplaudir { 0%, 100% { transform: scale(1) rotate(0); } 50% { transform: scale(1.2) rotate(5deg); } }
+#confetti-container { position: absolute; top: 50%; left: 50%; width: 1px; height: 1px; }
+.confete { position: absolute; width: 8px; height: 15px; opacity: 0; animation: explosao-confete 1.5s ease-out forwards; }
+@keyframes explosao-confete {
+    0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) rotate(var(--r)); opacity: 0; }
+}
+
+/* Estilos para Relatório Detalhado e Quiz */
+#respostas-detalhadas { margin-top: 20px; text-align: left; max-height: 30vh; overflow-y: auto; padding: 10px; border-top: 2px solid #b2dfdb; }
+.item-resposta { padding: 10px; margin-bottom: 10px; border-radius: 8px; border-left: 5px solid; }
+.item-resposta.correta { background-color: #E8F5E9; border-left-color: #4CAF50; }
+.item-resposta.errada { background-color: #FFEBEE; border-left-color: #F44336; }
+.item-resposta p, .item-resposta span { margin: 0 0 5px 0; }
+.item-resposta p { font-weight: bold; }
+.item-resposta span { font-weight: normal; }
+.explicacao-erro { margin-top: 8px; padding: 8px; background-color: #FFF9C4; border-radius: 5px; font-size: 0.9em; border: 1px dashed #FBC02D; }
+#quiz-final-container { text-align: left; margin: 20px auto; max-height: 45vh; overflow-y: auto; padding-right: 15px; }
+.pergunta { background-color: #e0f2f1; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+.pergunta p { font-weight: bold; margin-top: 0; }
+.pergunta label { display: block; margin: 5px 0 5px 20px; cursor: pointer; }
+.pergunta input { margin-right: 10px; }
+#relatorio-conteudo { border: 2px solid #00796b; padding: 20px; border-radius: 15px; margin-bottom: 20px; background: #fff; }
+#nota-final { font-size: 2.5em; color: #00796b; margin-bottom: 0; }
+#resultado-final { margin-top: 5px; font-size: 1.2em; }
